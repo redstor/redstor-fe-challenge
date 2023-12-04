@@ -2,6 +2,14 @@
 
 Welcome to Redstor's challenger app! This is a playground for you to try out new ideas and put your skills to the test.
 
+As part of our interview process, we would like to invite you to collaborate with us, building or improving experiences on our Redstor Challenger App that uses the Unsplash API.
+
+## What would you do with the Unsplash API? 
+
+The Unsplash API is a modern JSON API that surfaces all of the info you’ll need to build any experience for users.
+
+To begin, visit https://unsplash.com/developers, establish a new developer account, and integrate the API key into the environment.ts file.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
