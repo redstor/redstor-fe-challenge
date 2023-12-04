@@ -12,7 +12,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Suggestions
 
-- Start by taking a look at `https://github.com/redstor/challenger/issues`. This is where we've listed areas where there's room for improvement.
+- Start by taking a look at `https://github.com/redstor/redstor-fe-challenge/issues`. This is where we've listed areas where there's room for improvement.
 - Explore and make changes as you see fit. There are no rules, so let your imagination run wild!
 - If you have a great idea, feel free to log an issue for it.
 - Don't forget to have fun!
