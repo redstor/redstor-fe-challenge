@@ -10,6 +10,5 @@ import { PhotoRoutingModule } from './photo-routing.module';
 @NgModule({
   declarations: [PhotoComponent],
   imports: [CommonModule, PhotoRoutingModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
-  exports: [PhotoComponent]
 })
 export class PhotoModule {}

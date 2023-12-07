@@ -22,7 +22,6 @@ import { collectionsFeatureKey, collectionsReducer } from './store';
     MatIconModule,
     StoreModule.forFeature(collectionsFeatureKey, collectionsReducer),
     EffectsModule.forFeature([CollectionsEffects])
-  ],
-  exports: [CollectionComponent]
+  ]
 })
 export class CollectionModule {}

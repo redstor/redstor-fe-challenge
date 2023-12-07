@@ -9,6 +9,5 @@ import { HomeRoutingModule } from './home-routing.module';
 @NgModule({
   declarations: [HomeComponent],
   imports: [CommonModule, HomeRoutingModule, MatToolbarModule, MatProgressBarModule, MatCardModule],
-  exports: [HomeComponent]
 })
 export class HomeModule {}
