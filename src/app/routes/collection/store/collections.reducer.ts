@@ -12,7 +12,7 @@ export const initialState: State = {
   collections: []
 };
 
-export const reducer = createReducer(
+export const collectionsReducer = createReducer(
   initialState,
   on(CollectionsActions.loadCollectionsSuccess, (state, { collections }) => ({ ...state, collections }))
 );
