@@ -23,6 +23,7 @@
     "@ngrx/effects": "^17.0.0",
     "@ngrx/store": "^17.0.0",
     "@ngrx/store-devtools": "^17.0.0",
+    "lib": "file:projects/lib/dist/lib",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "unsplash-js": "^7.0.18",
@@ -40,6 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^17.0.0",
     "typescript": "~5.2.2"
   }
 }
