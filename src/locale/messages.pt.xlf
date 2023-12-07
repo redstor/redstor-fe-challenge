@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="pt">
+    <body>
+      <trans-unit id="5968366500418000730" datatype="html">
+        <source>Collections</source>
+        <target>Coleções</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/collection/collection.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/home/home.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/photo/photo.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="16823705783062999" datatype="html">
+        <source>Collection</source>
+        <target>Coleção</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/collection/collection.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/photo/photo.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5750485945694679561" datatype="html">
+        <source>Photo</source>
+        <target>Foto</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/photo/photo.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
