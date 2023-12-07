@@ -6,10 +6,10 @@ import { NgModule } from '@angular/core';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
-import { collectionsFeatureKey, collectionsReducer } from './store/collections.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CollectionsEffects } from './store/collections.effects';
 import { CollectionRoutingModule } from './collection-routing.module';
+import { collectionsFeatureKey, collectionsReducer } from './store';
 
 @NgModule({
   declarations: [CollectionComponent],
