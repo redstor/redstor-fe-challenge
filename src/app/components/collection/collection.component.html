@@ -1,29 +1,23 @@
-<!-- toDo Could you optimise this piece of code? -->
 <mat-toolbar>
-  <span>Redstor FE Challenger</span>
+  <span i18n="@@toolbarTitle">Redstor FE Challenger</span>
 </mat-toolbar>
 
-<!-- toDo Could you optimise this piece of code? -->
-<div class="breadcrumbs">
-  <a routerLink="/"><span i18n>Collections</span></a>
-  <span>></span>
-  <a class="active"><span i18n>Collection</span></a>
-</div>
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <a routerLink="/" i18n="@@breadcrumbsCollections">Collections</a>
+  <span aria-hidden="true">&gt;</span>
+  <span class="active" i18n="@@breadcrumbsCollection">Collection</span>
+</nav>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
 
-  <div class="gallery">
-    <!-- toDO Could you improve the styling to be responsive? -->
+  <div class="gallery" fxLayout="row wrap" fxLayoutGap="10px" fxLayout.xs="column">
     <ng-container *ngFor="let photo of photos$ | async">
       <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
         <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
-        <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
-          <p>
-            <mat-icon inline>favorite</mat-icon>
-            {{ photo.likes }} likes
-          </p>
+        <mat-card-content fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+          <mat-icon>favorite</mat-icon>
+          <span>{{ photo.likes }} likes</span>
         </mat-card-content>
       </mat-card>
     </ng-container>

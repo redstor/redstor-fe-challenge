@@ -3,13 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CollectionsEffects, metaReducers, reducers } from './store';
+// Note: StoreModule.forRoot e EffectsModule.forRoot permaneceriam aqui se você
+// tem estados ou efeitos que são globais para toda a aplicação.
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 import { environment } from '@environments/environment';
 
 @NgModule({
@@ -18,14 +16,8 @@ import { environment } from '@environments/environment';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-
-    // Store
-    // toDo Is there a way to load the store just for the module or component in use?
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([CollectionsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

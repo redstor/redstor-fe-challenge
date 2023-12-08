@@ -1,53 +1,43 @@
-<!-- toDo Could you optimise this piece of code? -->
 <mat-toolbar>
-  <span>Redstor FE Challenger</span>
+  <span i18n="@@toolbarTitle">Redstor FE Challenger</span>
 </mat-toolbar>
 
-<!-- toDo Could you optimise this piece of code? -->
-<div class="breadcrumbs">
-  <a routerLink="/"><span i18n>Collections</span></a>
-  <span>></span>
-  <a (click)="handleGotoCollection()"><span i18n>Collection</span></a>
-  <span>></span>
-  <a class="active"><span i18n>Photo</span></a>
-</div>
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <a routerLink="/" i18n="@@breadcrumbsCollections">Collections</a>
+  <span aria-hidden="true">&gt;</span>
+  <a (click)="handleGotoCollection()" i18n="@@breadcrumbsCollection">Collection</a>
+  <span aria-hidden="true">&gt;</span>
+  <span class="active" i18n="@@breadcrumbsPhoto">Photo</span>
+</nav>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
 
-  <div class="gallery" fxLayout.sm="column">
-    <!-- toDO Could you improve the styling to be responsive? -->
-    <mat-card *ngIf="photo$ | async as photo" class="preview">
-      <!-- toDO Why is throwing some console errors? -->
+  <div class="gallery" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
+    <ng-container *ngIf="photo$ | async as photo">
+      <mat-card class="photo-preview">
+        <mat-card-header>
+          <img mat-card-avatar [src]="photo.user.profile_image.medium" alt="{{ photo.user.name }}">
+          <mat-card-title>{{ photo.user.name }}</mat-card-title>
+          <mat-card-subtitle *ngIf="photo.user.location">
+            <mat-icon>place</mat-icon>
+            {{ photo.user.location }}
+          </mat-card-subtitle>
+        </mat-card-header>
 
-      <mat-card-header>
-        <img mat-card-avatar [src]="photo.user.profile_image.medium" />
-        <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="photo.user.location">
-          <mat-icon inline>where_to_vote</mat-icon>
-          {{ photo.user.location }}
-        </mat-card-subtitle>
-      </mat-card-header>
 
-      <mat-card-content>
-        <div>
-          <div>
-            <!-- toDO Is there another way to do this operation? -->
-            <p>{{ photo.description?.charAt(0)?.toUpperCase() }}{{ photo.description?.slice(1) }}</p>
+        <mat-card-content>
+          <p>{{ photo.description | titlecase }}</p>
+          <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end center">
+            <mat-icon>favorite</mat-icon>
+            <span>{{ photo.likes }} likes</span>
+            <mat-icon>visibility</mat-icon>
+            <span>{{ photo.views }} views</span>
           </div>
-          <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
-            <p fxLayoutAlign="center">
-              <mat-icon inline>favorite</mat-icon>
-              {{ photo.likes }} likes &nbsp;|&nbsp;&nbsp;
-              <mat-icon inline>visibility</mat-icon>
-              {{ photo.views }} views
-            </p>
-          </div>
-        </div>
-      </mat-card-content>
+        </mat-card-content>
 
-      <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
-    </mat-card>
+        <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
+      </mat-card>
+    </ng-container>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 
@@ -9,11 +9,7 @@ import { UnsplashService } from '@app/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  readonly unsplashService: UnsplashService = inject(UnsplashService);
-
-  // toDo Why the changes are not reflected in the UI?
-  isLoading: boolean = false;
-  collections: ICollection[] = [];
+  constructor(private unsplashService: UnsplashService, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // toDo Improve this call using the store (ngrx)
@@ -25,6 +21,10 @@ export class HomeComponent implements OnInit {
     this.unsplashService.listCollections().subscribe(collections => {
       this.collections = collections?.response?.results || [];
       this.isLoading = false;
+      this.changeDetectorRef.markForCheck(); // Notify Angular to check for updates
     });
   }
+
+  isLoading: boolean = false;
+  collections: ICollection[] = [];
 }
