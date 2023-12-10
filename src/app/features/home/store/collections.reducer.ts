@@ -19,5 +19,6 @@ export const initialState: State = {
 export const collectionsReducer = createReducer(
   initialState,
   on(CollectionsActions.loadCollections, (state) => ({ ...state, loading: true })),
-  on(CollectionsActions.loadCollectionsSuccess, (state, { collections, total }) => ({ ...state, collections, total, loading: false }))
+  on(CollectionsActions.loadCollectionsSuccess, (state, { collections, total }) => ({ ...state, collections, total, loading: false })),
+  on(CollectionsActions.loadCollectionsFailure, (state) => ({ ...state, loading: false })),
 );
