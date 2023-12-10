@@ -9,10 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@environments/environment';
+import { ShellComponent } from './shell/shell.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ShellComponent,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
@@ -15,16 +15,15 @@ export class CollectionComponent implements OnInit {
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
-  // toDo Is there another way using new Angular features to replace rjxs
-  readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  readonly isLoading$ = signal(false);
 
   ngOnInit(): void {
-    this.isLoading$.next(true);
+    this.isLoading$.set(true);
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
 
     this.unsplashService.listCollectionPhotos(collectionId).subscribe(photos => {
       this.photos$.next(photos?.response?.results || []);
-      this.isLoading$.next(false);
+      this.isLoading$.set(false);
     });
   }
 
