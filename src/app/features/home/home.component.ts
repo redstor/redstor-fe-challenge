@@ -6,18 +6,20 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { CollectionsFacade } from './store';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, MatCardModule, RouterModule, MatPaginatorModule]
+  imports: [CommonModule, MatProgressBarModule, MatCardModule, RouterModule, MatPaginatorModule, TranslateModule]
 })
 export class HomeComponent implements OnInit {
   readonly unsplashService: UnsplashService = inject(UnsplashService);
   readonly collectionsFacade: CollectionsFacade = inject(CollectionsFacade);
-
+  itemsPerPageLabel = 'Itens por pagina';
+  
   pageSize = 10;
   pageIndex = 0;
 

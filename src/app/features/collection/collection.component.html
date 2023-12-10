@@ -1,12 +1,11 @@
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
-  <a routerLink="/"><span>Collections</span></a>
+  <a routerLink="/"><span>{{ 'BREADCRUMBS.COLLECTIONS' | translate }}</span></a>
   <span>></span>
-  <a class="active"><span>Collection</span></a>
+  <a class="active"><span>{{ 'BREADCRUMBS.COLLECTION' | translate }}</span></a>
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading$()"></mat-progress-bar>
 
   <div class="gallery">
@@ -16,7 +15,7 @@
         <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
           <p>
             <mat-icon inline>favorite</mat-icon>
-            {{ photo.likes }} likes
+            {{ photo.likes }} {{ 'LIKES' | translate }}
           </p>
         </mat-card-content>
       </mat-card>

@@ -20,6 +20,7 @@ export class PhotoComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading$.set(true);
     const photoId = this.activatedRoute.snapshot.params['photoId'];
+    console.log(this.activatedRoute.parent);
 
     this.unsplashService.getPhoto(photoId).pipe(filter(p => p !== null)).subscribe(photo => {
       // toDo Is there a better way to improve this object mapping?

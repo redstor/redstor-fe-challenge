@@ -1,14 +1,13 @@
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
-  <a routerLink="/"><span>Collections</span></a>
+  <a routerLink="/"><span>{{ 'BREADCRUMBS.COLLECTIONS' | translate }}</span></a>
   <span>></span>
-  <a (click)="handleGotoCollection()"><span>Collection</span></a>
+  <a (click)="handleGotoCollection()"><span>{{ 'BREADCRUMBS.COLLECTION' | translate }}</span></a>
   <span>></span>
-  <a class="active"><span>Photo</span></a>
+  <a class="active"><span>{{ 'BREADCRUMBS.PHOTO' | translate }}</span></a>
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
   <mat-progress-bar *ngIf="isLoading$()" mode="indeterminate"></mat-progress-bar>
 
   <div class="gallery">
@@ -30,9 +29,9 @@
           <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
             <p fxLayoutAlign="center">
               <mat-icon inline>favorite</mat-icon>
-              {{ photo.likes }} likes &nbsp;|&nbsp;&nbsp;
+              {{ photo.likes }} {{ 'LIKES' | translate }} &nbsp;|&nbsp;&nbsp;
               <mat-icon inline>visibility</mat-icon>
-              {{ photo.views }} views
+              {{ photo.views }} {{ 'VIEWS' | translate }}
             </p>
           </div>
         </div>

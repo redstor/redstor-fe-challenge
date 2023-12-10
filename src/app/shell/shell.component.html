@@ -1,3 +1,21 @@
 <mat-toolbar>
-   <span>Redstor FE Challenger</span>
+   <span>{{ 'TITLE' | translate }}</span>
+   <button 
+      mat-raised-button
+      class="lang-btn"
+      color="primary" 
+      (click)="selectLanguage('en')" 
+      [color]="language === 'en' ? 'primary': 'white'"
+   >
+      {{ 'LANGUAGES.ENGLISH' | translate }}
+   </button>
+   <button 
+      mat-raised-button 
+      class="lang-btn"
+      color="primary" 
+      (click)="selectLanguage('pt')" 
+      [color]="language === 'pt' ? 'primary': 'white'"
+   >
+      {{ 'LANGUAGES.PORTUGUESE' | translate }}
+   </button>
 </mat-toolbar>
