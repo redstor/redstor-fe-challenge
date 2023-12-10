@@ -6,26 +6,43 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { CollectionsEffects, metaReducers, reducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@environments/environment';
+import { ShellComponent } from './shell/shell.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { TranslatePaginatorService } from './services/translate-paginator.service';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ShellComponent,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-
-    // Store
-    // toDo Is there a way to load the store just for the module or component in use?
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([CollectionsEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    HttpClientModule,
+    StoreModule.forRoot(),
+    EffectsModule.forRoot(),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: TranslatePaginatorService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

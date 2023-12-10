@@ -1,0 +1,21 @@
+{
+   "TITLE": "Desafio Redstor FE",
+   "BREADCRUMBS": {
+      "COLLECTIONS": "Coleções",
+      "COLLECTION": "Coleção",
+      "PHOTO": "Foto"
+   },
+   "LIKES": "gostos",
+   "VIEWS": "visualizações",
+   "PAGINATION": {
+      "ITEMS_PER_PAGE": "Itens por página:",
+      "NEXT_PAGE": "Próxima página",
+      "PREV_PAGE": "Página anterior",
+      "FIRST_PAGE": "Primeira página",
+      "LAST_PAGE": "Última página"
+   },
+   "LANGUAGES": {
+      "ENGLISH": "Inglês",
+      "PORTUGUESE": "Português"
+   }
+}

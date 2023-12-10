@@ -1,0 +1,37 @@
+<!-- toDo Could you optimise this piece of code? -->
+<div class="breadcrumbs">
+  <a class="active"><span>{{ 'BREADCRUMBS.COLLECTIONS' | translate }}</span></a>
+</div>
+
+<div class="layout-container">
+  <mat-progress-bar *ngIf="collectionsFacade.loading$()" mode="indeterminate"></mat-progress-bar>
+
+  <mat-paginator 
+    [length]="collectionsFacade.total$()"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page">
+  </mat-paginator>
+
+  <div class="gallery">
+    <ng-container *ngFor="let collection of collectionsFacade.collections$()">
+      <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
+        <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
+        <mat-card-content>
+          <p class="title">{{ collection.title }}</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <mat-paginator 
+    [length]="collectionsFacade.total$()"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page">
+  </mat-paginator>
+</div>

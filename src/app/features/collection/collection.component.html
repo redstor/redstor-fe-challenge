@@ -1,0 +1,24 @@
+<!-- toDo Could you optimise this piece of code? -->
+<div class="breadcrumbs">
+  <a routerLink="/"><span>{{ 'BREADCRUMBS.COLLECTIONS' | translate }}</span></a>
+  <span>></span>
+  <a class="active"><span>{{ 'BREADCRUMBS.COLLECTION' | translate }}</span></a>
+</div>
+
+<div class="layout-container">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading$()"></mat-progress-bar>
+
+  <div class="gallery">
+    <ng-container *ngFor="let photo of photos$ | async">
+      <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
+        <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
+        <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
+          <p>
+            <mat-icon inline>favorite</mat-icon>
+            {{ photo.likes }} {{ 'LIKES' | translate }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>
