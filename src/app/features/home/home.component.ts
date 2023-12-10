@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   readonly unsplashService: UnsplashService = inject(UnsplashService);
   readonly collectionsFacade: CollectionsFacade = inject(CollectionsFacade);
   itemsPerPageLabel = 'Itens por pagina';
-  
+
   pageSize = 10;
   pageIndex = 0;
 
