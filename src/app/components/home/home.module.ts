@@ -5,10 +5,21 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HomeRoutingModule } from './home-routing.module';
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule],
+  imports: [
+    CommonModule, 
+    MatToolbarModule, 
+    MatProgressBarModule, 
+    MatCardModule,
+    UtilsModule,
+    HomeRoutingModule, 
+    RouterModule   
+  ],
   exports: [HomeComponent]
 })
 export class HomeModule {}
+

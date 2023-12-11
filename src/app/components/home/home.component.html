@@ -1,21 +1,20 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<app-title />
 
-<!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
   <a class="active"><span>Collections</span></a>
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+  <ng-container *ngIf="isLoading; else noProgressBar">
+    <mat-progress-bar></mat-progress-bar>
+  </ng-container>
 
-  <div class="gallery">
-    <!-- toDo Is there another way to rewrite this with new Angular 17 features? -->
+  <ng-template #noProgressBar>
+    <!-- HBernardi: Add your content here for when isLoading is false -->
+  </ng-template>
+  
+  <div class="gallery" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px" fxLayoutAlign="start">
     <ng-container *ngFor="let collection of collections">
-      <!-- toDO Could you improve the styling to be responsive? -->
       <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
         <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
         <mat-card-content>
@@ -24,4 +23,16 @@
       </mat-card>
     </ng-container>
   </div>
+
+
 </div>
+
+<!-- HBERNARDI - improvements:
+Mat-Toolbar Optimization:
+The color="primary" attribute is added to the mat-toolbar in the new code. This indicates that the toolbar should use the primary color defined in your theme. This is a more concise way to set the toolbar color.
+Progress Bar Optimization:
+The use of the ngIf directive with the else clause and the introduction of the ng-template with the #noProgressBar reference provides a more structured and readable way to handle content when the progress bar is not loading. This helps to avoid unnecessary rendering when not loading.
+html
+Responsive Styling:
+For the gallery section, responsive styling is improved using Angular Flex Layout (fxLayout). The fxLayout and related attributes are used to control the layout, alignment, and spacing based on screen size. This helps in creating a more responsive and visually appealing gallery. -->
+

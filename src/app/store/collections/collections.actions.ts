@@ -1,4 +1,4 @@
-import { ICollection } from '@app/interfaces';
+import { ICollection } from 'app/interfaces';
 import { createAction } from '@ngrx/store';
 
 export namespace CollectionsActions {

@@ -6,10 +6,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PhotoComponent } from './photo.component';
+import { PhotoRoutingModule } from './photo-routing.module';
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
   declarations: [PhotoComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatToolbarModule, 
+    MatProgressBarModule, 
+    MatCardModule, 
+    MatIconModule, 
+    RouterModule, 
+    PhotoRoutingModule,
+    UtilsModule 
+  ],
   exports: [PhotoComponent]
 })
 export class PhotoModule {}

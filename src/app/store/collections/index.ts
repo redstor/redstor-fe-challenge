@@ -5,7 +5,7 @@ export * from './collections.selectors';
 export * from './collections.facade';
 
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { environment } from '@environments/environment';
+import { environment } from 'environments/environment';
 import * as fromCollections from './collections.reducer';
 
 export interface State {
