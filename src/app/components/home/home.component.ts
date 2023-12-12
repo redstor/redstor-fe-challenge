@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 import { Subscription, Observable } from 'rxjs';
-import { loadCollections } from '../collection/collection.actions';
+import { loadCollections } from '../../store/collection/collection.actions';
 import { AppState } from 'app-state';
 
 // toDo Transform this module in a standalone component
@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    // toDo What's happening with this subscription in case the component is destroyed?
-    // toDo Is there another way to do this operation?
     // toDo Could we add a pagination?
     const subscription = this.unsplashService.listCollections().subscribe(collections => {
       this.collections = collections?.response?.results || [];

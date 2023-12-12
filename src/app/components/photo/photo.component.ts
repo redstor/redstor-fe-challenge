@@ -5,7 +5,10 @@ import { UnsplashService } from '@app/services';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { Full } from 'unsplash-js/dist/methods/photos/types';
 
-// toDo Is there a way to improve the rendering strategy in this component?
+import * as fromPhoto from '../../store/photo/photo.reducer';
+import { Store } from '@ngrx/store';
+import * as PhotoActions from '../../store/photo/photo.actions';
+
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html'
@@ -17,14 +20,23 @@ export class PhotoComponent implements OnInit, OnDestroy {
   public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoadingObservable$: Observable<boolean> = this.isLoading$.asObservable();
 
-  constructor(private unsplashService: UnsplashService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private unsplashService: UnsplashService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<fromPhoto.PhotoState>
+  ) {
+    const photoId = this.activatedRoute.snapshot.params['photoId'];
+
+    this.store.dispatch(PhotoActions.loadPhoto({ photoId }));
+  }
 
   ngOnInit(): void {
     const photoId = this.activatedRoute.snapshot.params['photoId'];
 
     this.unsplashService.startLoading();
 
-    // toDo Is there a better way to improve this object mapping?
+    this.store.dispatch(PhotoActions.loadPhoto({ photoId }));
 
     this.subscription = this.unsplashService.getPhoto(photoId).subscribe(response => {
       const photo = this.transformToIPhoto(response.response);
@@ -34,9 +46,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe(); // Prevent memory leaks
-  }
+  ngOnDestroy(): void {}
 
   private transformToIPhoto(fullPhoto: Full | undefined): IPhoto | null {
     if (!fullPhoto) return null;

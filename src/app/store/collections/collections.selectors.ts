@@ -6,7 +6,7 @@ export namespace CollectionsSelectors {
   export const selectCollections = createSelector(selectCollectionsFeature, (state: fromCollections.State) => state.collections);
 }
 
-export const selectCollectionState = createFeatureSelector<fromCollection.CollectionState>('collection');
+export const selectCollectionState = createFeatureSelector<fromCollections.CollectionState>('collection');
 
 export const selectCollectionPhotos = createSelector(selectCollectionState, state => state.photos);
 
