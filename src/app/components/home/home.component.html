@@ -12,9 +12,9 @@
   <ng-template #noProgressBar>
     <!-- HBernardi: Add your content here for when isLoading is false -->
   </ng-template>
-  
+
   <div class="gallery" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px" fxLayoutAlign="start">
-    <ng-container *ngFor="let collection of collections">
+    <ng-container *ngFor="let collection of paginatedCollections">
       <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
         <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
         <mat-card-content>
@@ -22,8 +22,13 @@
         </mat-card-content>
       </mat-card>
     </ng-container>
-  </div>
-
+    <div class="pagination">
+      <mat-paginator [length]="totalCollections"
+      [pageSize]="perPage"
+      [pageIndex]="page - 1"
+      (page)="onPageChange($event.pageIndex + 1)"></mat-paginator>
+    </div>
+  </div> 
 
 </div>
 
@@ -35,4 +40,3 @@ The use of the ngIf directive with the else clause and the introduction of the n
 html
 Responsive Styling:
 For the gallery section, responsive styling is improved using Angular Flex Layout (fxLayout). The fxLayout and related attributes are used to control the layout, alignment, and spacing based on screen size. This helps in creating a more responsive and visually appealing gallery. -->
-

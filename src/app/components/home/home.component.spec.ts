@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { UnsplashService } from 'app/services';
 import { of } from 'rxjs';
@@ -12,6 +12,8 @@ import { TitleComponent } from '../utils/title/title.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { By } from '@angular/platform-browser';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -23,10 +25,16 @@ describe('HomeComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [HomeComponent, TitleComponent],
-      imports: [MatToolbarModule, MatProgressBarModule, MatCardModule, RouterTestingModule, 
+      imports: [
+        MatToolbarModule,
+        MatProgressBarModule,
+        MatCardModule,
+        MatPaginatorModule,
+        RouterTestingModule,
         MatIconModule,
         HttpClientModule,
-        TranslateModule.forRoot()],
+        TranslateModule.forRoot(),
+      ],
       providers: [{ provide: UnsplashService, useValue: mockUnsplashService }],
     }).compileComponents();
   }));
@@ -34,19 +42,18 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should fetch and set collections on init', () => {
-    const mockCollections: ICollection[] = [
-      { 
-        id: 1, 
-        title: 'test', 
-        published_at: new Date, 
+  
+  it('should display paginated collections in the gallery', () => {
+    component.paginatedCollections = [
+      {
+        id: 1,
+        title: 'test',
+        published_at: new Date(),
         cover_photo: {
           id: '1',
           width: 10,
@@ -86,23 +93,68 @@ describe('HomeComponent', () => {
           views: 10
         },
         total_photos: 1
-      }];
+      },
+      {
+        id: 2,
+        title: 'test',
+        published_at: new Date(),
+        cover_photo: {
+          id: '1',
+          width: 10,
+          height: 10,
+          color: 'red',
+          description: 'some description',
+          alt_description: 'some description',
+          urls: {
+            raw: 'test',
+            full: 'test',
+            regular: 'test',
+            small: 'test',
+            thumb: 'test',
+            small_s3: 'test',
+          },
+          links: {
+            self: 'test',
+            html: 'test',
+            download: 'test',
+            download_location: 'test',
+          },
+          user: {
+            id: 'test',
+            username: 'test',
+            name: 'test',
+            first_name: 'test',
+            last_name: 'test',
+            profile_image: {
+              large: 'test',
+              medium: 'test',
+              small: 'test',
+            },
+            portfolio_url: 'test',
+            location: 'test',
+          },
+          likes: 10,
+          views: 10
+        },
+        total_photos: 1
+      },
+    ];
 
-      const mockApiResponse: ApiResponse<{ results: ICollection[]; total: number }> = {
-        type: 'success',
-        response: { results: mockCollections, total: mockCollections.length },
-        originalResponse: {} as Response,
-        errors: undefined,
-        status: 200,
-      };
+    fixture.detectChanges();
 
-    mockUnsplashService.listCollections.and.returnValue(of(mockApiResponse));
+    const galleryItems = fixture.debugElement.queryAll(By.css('.gallery-item'));
 
-    component.ngOnInit();
+    expect(galleryItems.length).toBe(2);
+  });
 
-    expect(component.isLoading).toBe(false);
-    expect(component.collections).toEqual(mockCollections);
-    expect(mockUnsplashService.listCollections).toHaveBeenCalled();
+  it('should handle page change correctly', () => {
+    spyOn(component, 'loadCollections');
+    const newPage = 2;
+
+    component.onPageChange(newPage);
+
+    expect(component.page).toBe(newPage);
+    expect(component.loadCollections).toHaveBeenCalled();
   });
 
   it('should unsubscribe on destroy', () => {
@@ -115,3 +167,8 @@ describe('HomeComponent', () => {
     expect(component.destroy$.complete).toHaveBeenCalled();
   });
 });
+
+
+
+
+

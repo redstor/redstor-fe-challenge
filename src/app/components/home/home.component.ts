@@ -12,6 +12,11 @@ import { Subject } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   pageTitle: string = 'Redstor FE Challenger';
   destroy$ = new Subject<void>();
+  page: number = 1;
+  perPage: number = 6;
+  totalCollections: number = 0;
+
+  paginatedCollections: ICollection[] = [];
 
   constructor(private readonly unsplashService: UnsplashService, private cdr: ChangeDetectorRef) { }
 
@@ -19,16 +24,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   collections: ICollection[] = [];
 
   ngOnInit(): void {
+    this.loadCollections();    
+  }
+
+  loadCollections() :void {
     this.isLoading = true;
 
-    this.unsplashService
-      .listCollections()
+      this.unsplashService
+      .listCollections(this.page, this.perPage)
       ?.pipe(takeUntil(this.destroy$))
       .subscribe((collections) => {
-        this.collections = collections?.response?.results || [];
+        this.totalCollections = collections?.response?.total || 0;
+
+        const startIndex = 0;
+        const endIndex = this.perPage;
+        this.paginatedCollections = collections?.response?.results?.slice(startIndex, endIndex) || [];
+
         this.isLoading = false;
         this.cdr.detectChanges();
       });
+  }
+
+  onPageChange(newPage: number): void {
+    this.page = newPage;
+    this.loadCollections();
   }
 
   ngOnDestroy(): void {
