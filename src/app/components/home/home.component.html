@@ -11,12 +11,14 @@
 
   <div class="gallery" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.xs="column">
     <ng-container *ngIf="collections; else loading">
-      <mat-card class="gallery-item thumbnails" *ngFor="let collection of collections">
-        <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.title" />
-        <mat-card-content>
-          <p class="title">{{ collection.title }}</p>
-        </mat-card-content>
-      </mat-card>
+      <div *ngFor="let collection of collections">
+        <mat-card class="gallery-item thumbnails" [routerLink]="['/collection', collection.id]">
+          <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.title" />
+          <mat-card-content>
+            <p class="title">{{ collection.title }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </ng-container>
 
   </div>

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { IPhoto } from '@app/interfaces';
-import { loadCollectionPhotos } from '../../store/collection/collection.actions';
-import { selectCollectionLoading, selectCollectionPhotos } from '@app/store';
+import { UnsplashService } from '@app/services';
 
 @Component({
   selector: 'app-collection',
@@ -11,15 +10,21 @@ import { selectCollectionLoading, selectCollectionPhotos } from '@app/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionComponent implements OnInit {
-  photos$ = this.store.select(selectCollectionPhotos);
-  isLoading$ = this.store.select(selectCollectionLoading);
+  private readonly unsplashService: UnsplashService = inject(UnsplashService);
+  private readonly router: Router = inject(Router);
+  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute, private readonly store: Store) {}
+  readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
+  // toDo Is there another way using new Angular features to replace rjxs
+  readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      const collectionId = params['collectionId'];
-      this.store.dispatch(loadCollectionPhotos({ collectionId }));
+    this.isLoading$.next(true);
+    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
+
+    this.unsplashService.listCollectionPhotos(collectionId).subscribe(photos => {
+      this.photos$.next(photos?.response?.results || []);
+      this.isLoading$.next(false);
     });
   }
 

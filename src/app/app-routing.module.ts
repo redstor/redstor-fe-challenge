@@ -6,13 +6,11 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'collection/:collectionId',
-    component: CollectionComponent,
-    children: [
-      {
-        path: 'photo/:photoId',
-        component: PhotoComponent
-      }
-    ]
+    component: CollectionComponent
+  },
+  {
+    path: 'collection/:collectionId/photo/:photoId',
+    component: PhotoComponent
   }
 ];
 
