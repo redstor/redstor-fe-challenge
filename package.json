@@ -24,6 +24,8 @@
     "@ngrx/entity": "^17.0.1",
     "@ngrx/store": "^17.0.1",
     "@ngrx/store-devtools": "^17.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "lib": "file:projects/lib/dist/lib",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
