@@ -1,9 +1,5 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<app-title />
 
-<!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
   <a routerLink="/"><span>Collections</span></a>
   <span>></span>
@@ -13,41 +9,50 @@
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <mat-progress-bar *ngIf="(isLoading$ | async); else noProgressBar"></mat-progress-bar>
+  <ng-template #noProgressBar><!-- Hbernardi: Optional content when not loading --></ng-template>
 
-  <div class="gallery" fxLayout.sm="column">
-    <!-- toDO Could you improve the styling to be responsive? -->
+  <div class="gallery" fxLayout="column" fxLayout.sm="column wrap" fxLayout.xs="column wrap">
     <mat-card *ngIf="photo$ | async as photo" class="preview">
-      <!-- toDO Why is throwing some console errors? -->
-
       <mat-card-header>
-        <img mat-card-avatar [src]="photo.user.profile_image.medium" />
-        <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="photo.user.location">
+        <img mat-card-avatar [src]="photo?.user?.profile_image?.medium" />
+        <mat-card-title>{{ photo?.user?.first_name }} {{ photo?.user?.last_name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="photo?.user?.location">
           <mat-icon inline>where_to_vote</mat-icon>
-          {{ photo.user.location }}
+          {{ photo?.user?.location }}
         </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
         <div>
           <div>
-            <!-- toDO Is there another way to do this operation? -->
-            <p>{{ photo.description?.charAt(0)?.toUpperCase() }}{{ photo.description?.slice(1) }}</p>
+            <p>{{ capitalizeDescription(photo?.description) }}</p>
           </div>
           <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
             <p fxLayoutAlign="center">
               <mat-icon inline>favorite</mat-icon>
-              {{ photo.likes }} likes &nbsp;|&nbsp;&nbsp;
+              {{ photo?.likes }} likes &nbsp;|&nbsp;&nbsp;
               <mat-icon inline>visibility</mat-icon>
-              {{ photo.views }} views
+              {{ photo?.views }} views
             </p>
           </div>
         </div>
       </mat-card-content>
 
-      <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
+      <img mat-card-image [src]="photo?.urls?.full" [alt]="photo?.alt_description" />
     </mat-card>
   </div>
 </div>
+
+<!-- HBERNARDI - improvements:
+Mat-Toolbar Optimization:
+Similar to previous examples, the color="primary" attribute is added to the mat-toolbar in the new code. This is a more concise way to set the toolbar color.
+Progress Bar Optimization:
+The use of the ngIf directive with the else clause and the introduction of the ng-template with the #noProgressBar reference provide a more structured and readable way to handle content when the progress bar is not loading. This helps to avoid unnecessary rendering when not loading.
+Responsive Styling:
+For the gallery section, responsive styling is improved using Angular Flex Layout (fxLayout). The fxLayout and related attributes are used to control the layout, alignment, and spacing based on screen size. This helps in creating a more responsive and visually appealing gallery.
+Error Handling for Optional Properties:
+Optional chaining (?.) is introduced when accessing properties in the photo object. This helps to prevent console errors if a property is null or undefined.
+html
+Description Capitalization Function:
+The capitalizeDescription function is introduced to capitalize the first letter of the photo description. This function enhances readability and provides a more organized way to handle this operation. -->

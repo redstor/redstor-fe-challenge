@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { UnsplashService } from '@app/services';
+import { UnsplashService } from 'app/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CollectionsActions } from './collections.actions';
 import { map, switchMap } from 'rxjs';

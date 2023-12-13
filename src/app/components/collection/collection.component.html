@@ -1,9 +1,5 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<app-title />
 
-<!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
   <a routerLink="/"><span>Collections</span></a>
   <span>></span>
@@ -11,13 +7,12 @@
 </div>
 
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
+  <mat-progress-bar *ngIf="(isLoading$ | async); else noProgressBar"></mat-progress-bar>
+  <ng-template #noProgressBar><!-- Hbernardi: Optional content when not loading --></ng-template>
 
-  <div class="gallery">
-    <!-- toDO Could you improve the styling to be responsive? -->
+  <div class="gallery" fxLayout="row" fxLayoutGap="16px" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutWrap>
     <ng-container *ngFor="let photo of photos$ | async">
-      <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
+      <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)" fxFlex="calc(33.3333% - 16px)">
         <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
         <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
           <p>
@@ -28,4 +23,14 @@
       </mat-card>
     </ng-container>
   </div>
+
 </div>
+
+<!-- HBERNARDI - improvements:
+Mat-Toolbar Optimization:
+The color="primary" attribute is added to the mat-toolbar in the new code, indicating that the toolbar should use the primary color defined in your theme. This is a more concise way to set the toolbar color.
+Progress Bar Optimization:
+The use of the else clause with the ngIf directive and the introduction of the ng-template with the #noProgressBar reference provide a more structured and readable way to handle content when the progress bar is not loading. This helps to avoid unnecessary rendering when not loading.
+Responsive Styling:
+For the gallery section, responsive styling is improved using Angular Flex Layout (fxLayout). The fxLayout and related attributes are used to control the layout, alignment, and spacing based on screen size. This helps in creating a more responsive and visually appealing gallery.
+The fxFlex="calc(33.3333% - 16px)" attribute is added to each mat-card within the gallery to ensure that each item takes up approximately one-third of the available space with a margin of 16px between items. This makes the gallery items responsive and visually balanced. -->

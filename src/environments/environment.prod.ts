@@ -1,6 +1,6 @@
-import { IEnvironment } from '@environments/environment.model';
+import { IEnvironment } from 'environments/environment.model';
 
 export const environment: IEnvironment = {
   production: true,
-  unsplashAccessKey: 'UNSPLASH_ACCESS_KEY'
+  unsplashAccessKey: '4sIt3ejYcDNKEXsYbl4nNhhuPDrA5gohxSqXgSGUQOQ'
 };

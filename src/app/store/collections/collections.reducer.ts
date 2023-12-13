@@ -1,4 +1,4 @@
-import { ICollection } from '@app/interfaces';
+import { ICollection } from 'app/interfaces';
 import { createReducer, on } from '@ngrx/store';
 import { CollectionsActions } from './collections.actions';
 
