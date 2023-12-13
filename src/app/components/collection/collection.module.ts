@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CollectionsEffects, metaReducers, reducers } from '../../store';
 import { CollectionRoutingModule } from './collection-routing.module';
 import { UtilsModule } from '../utils/utils.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CollectionComponent],
@@ -26,6 +27,7 @@ import { UtilsModule } from '../utils/utils.module';
     CollectionRoutingModule,
     RouterModule,
     UtilsModule,
+    TranslateModule.forChild(),
   ],
   exports: [CollectionComponent]
 })

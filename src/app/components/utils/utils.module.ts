@@ -16,13 +16,7 @@ import { HttpLoaderFactory } from 'app/app.module';
     MatButtonModule,    
     MatIconModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule.forChild(),
   ],
   exports: [TitleComponent]
 })

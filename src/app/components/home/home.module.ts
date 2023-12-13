@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeRoutingModule } from './home-routing.module';
 import { UtilsModule } from '../utils/utils.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -19,7 +20,8 @@ import { UtilsModule } from '../utils/utils.module';
     MatPaginatorModule,
     UtilsModule,
     HomeRoutingModule, 
-    RouterModule   
+    RouterModule,
+    TranslateModule.forChild(), 
   ],
   exports: [HomeComponent]
 })

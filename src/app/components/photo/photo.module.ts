@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { PhotoComponent } from './photo.component';
 import { PhotoRoutingModule } from './photo-routing.module';
 import { UtilsModule } from '../utils/utils.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [PhotoComponent],
@@ -19,7 +20,8 @@ import { UtilsModule } from '../utils/utils.module';
     MatIconModule, 
     RouterModule, 
     PhotoRoutingModule,
-    UtilsModule 
+    UtilsModule,
+    TranslateModule.forChild(),
   ],
   exports: [PhotoComponent]
 })

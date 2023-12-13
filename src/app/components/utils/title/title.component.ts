@@ -6,10 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './title.component.html',
 })
 export class TitleComponent implements OnInit {
-  pageTitle: string = 'Redstor FE Challenger';
-
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en'); // Set the default language
   }
 
   changeLanguage() {
