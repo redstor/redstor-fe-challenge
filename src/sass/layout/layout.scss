@@ -26,9 +26,10 @@
   }
 }
 
-mat-card {
+.home mat-card,
+.collection mat-card {
   .mat-mdc-card-image.mdc-card__media {
-    width: 400px;
+    width: 500px;
     height: 50vh;
     img {
       width: 100%;
@@ -37,8 +38,17 @@ mat-card {
     }
   }
 
-  .mat-mdc-card-content:last-child {
-    padding-top: 8px;
-    padding-bottom: 8px;
+  .mat-mdc-card-content {
+    display: flex;
+    align-content: center;
+    align-items: flex-end;
+    &:last-child {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .mat-icon {
+      margin-right: 4px;
+    }
   }
 }
