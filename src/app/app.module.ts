@@ -18,10 +18,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CardComponent } from 'projects/lib/src/lib/card/card.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,7 +55,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forRoot({ collections: collectionReducer }),
-    StoreModule.forFeature('photo', photoReducer)
+    StoreModule.forFeature('photo', photoReducer),
+    CardComponent,
+    TitleCasePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -7,10 +7,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PhotoComponent } from './photo.component';
 import { SharedHeaderComponent } from '@app/shared-header/shared-header.component';
+import { CardComponent } from 'projects/lib/src/lib/card/card.component';
 
 @NgModule({
   declarations: [PhotoComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, SharedHeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatIconModule,
+    SharedHeaderComponent,
+    CardComponent
+  ],
   exports: [PhotoComponent]
 })
 export class PhotoModule {}

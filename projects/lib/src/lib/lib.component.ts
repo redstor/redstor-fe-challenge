@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-lib',
+  selector: 'external-lib',
   standalone: true,
   imports: [],
   template: `
-    <p>
-      lib works!
-    </p>
+    <p>lib works!</p>
   `,
   styles: ``
 })
-export class LibComponent {
-
-}
+export class LibComponent {}
