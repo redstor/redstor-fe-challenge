@@ -39,7 +39,11 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(loadCollections());
 
     this.store.pipe(select(state => state.collections)).subscribe(stateCollections => {
-      this.collections = stateCollections;
+      if (Array.isArray(stateCollections)) {
+        this.collections = stateCollections;
+      } else {
+        this.collections = [];
+      }
 
       this.breadcrumbs = [{ label: 'Collections' }];
       if (this.collections.length > 0) {
