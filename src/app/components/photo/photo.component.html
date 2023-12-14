@@ -1,5 +1,4 @@
 <app-shared-header [toolbarTitle]="'Redstor FE Challenger'" [breadcrumbs]="breadcrumbs"></app-shared-header>
-
 <div class="layout-container">
   <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
 
@@ -15,18 +14,21 @@
           </mat-card-subtitle>
         </mat-card-header>
 
+        <img mat-card-image class="photo-image" [src]="photo.urls.full" [alt]="photo.alt_description" />
 
         <mat-card-content>
-          <p>{{ photo.description | titlecase }}</p>
-          <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end center">
-            <mat-icon>favorite</mat-icon>
-            <span>{{ photo.likes }} likes</span>
-            <mat-icon>visibility</mat-icon>
-            <span>{{ photo.views }} views</span>
+          <p class="photo-description">{{ photo.description | titlecase }}</p>
+          <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end center" class="stats-container">
+            <div class="stats-item">
+              <mat-icon>favorite</mat-icon>
+              <span>{{ photo.likes }} likes</span>
+            </div>
+            <div class="stats-item">
+              <mat-icon>visibility</mat-icon>
+              <span>{{ photo.views }} views</span>
+            </div>
           </div>
         </mat-card-content>
-
-        <img mat-card-image class="photo-image" [src]="photo.urls.full" [alt]="photo.alt_description" />
       </mat-card>
     </ng-container>
   </div>
