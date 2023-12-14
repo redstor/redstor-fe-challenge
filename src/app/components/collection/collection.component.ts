@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
+
+interface Breadcrumb {
+  label: string;
+  link?: string;
+}
 
 @Component({
   selector: 'app-collection',
@@ -10,13 +15,15 @@ import { UnsplashService } from '@app/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionComponent implements OnInit {
-  private readonly unsplashService: UnsplashService = inject(UnsplashService);
-  private readonly router: Router = inject(Router);
-  private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-
   readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
-  // toDo Is there another way using new Angular features to replace rjxs
   readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  readonly breadcrumbs: Breadcrumb[] = [{ label: 'Collections' }, { label: 'Collection' }];
+
+  constructor(
+    private readonly unsplashService: UnsplashService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.isLoading$.next(true);

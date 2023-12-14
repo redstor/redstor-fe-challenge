@@ -8,6 +8,7 @@ import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
 import { collectionReducer } from '../../store/collection/collection.reducer';
+import { SharedHeaderComponent } from '@app/shared-header/shared-header.component';
 
 @NgModule({
   declarations: [CollectionComponent],
@@ -18,7 +19,8 @@ import { collectionReducer } from '../../store/collection/collection.reducer';
     MatProgressBarModule,
     MatCardModule,
     MatIconModule,
-    StoreModule.forFeature('collections', collectionReducer)
+    StoreModule.forFeature('collections', collectionReducer),
+    SharedHeaderComponent
   ],
   exports: [CollectionComponent]
 })

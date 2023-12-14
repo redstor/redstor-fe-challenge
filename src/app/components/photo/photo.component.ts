@@ -4,6 +4,11 @@ import { UnsplashService } from '@app/services';
 import { BehaviorSubject } from 'rxjs';
 import { IPhoto } from '@app/interfaces';
 
+interface Breadcrumb {
+  label: string;
+  link?: string;
+}
+
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html'
@@ -11,6 +16,7 @@ import { IPhoto } from '@app/interfaces';
 export class PhotoComponent implements OnInit {
   readonly photo$: BehaviorSubject<IPhoto | null> = new BehaviorSubject<IPhoto | null>(null);
   readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  readonly breadcrumbs: Breadcrumb[] = [{ label: 'Collections' }, { label: 'Collection' }, { label: 'Photo' }];
 
   constructor(private unsplashService: UnsplashService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
@@ -23,10 +29,5 @@ export class PhotoComponent implements OnInit {
         this.isLoading$.next(false);
       });
     }
-  }
-
-  handleGotoCollection() {
-    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
-    this.router.navigate(['collection', collectionId]);
   }
 }

@@ -5,8 +5,9 @@ import { UnsplashService } from '@app/services';
 import { Subscription, Observable } from 'rxjs';
 import { loadCollections } from '../../store/collection/collection.actions';
 import { AppState } from 'app-state';
+import { TranslateService } from '@ngx-translate/core';
+import { updateBreadcrumbs } from '../../store/breadcrumb/breadcrumb.actions';
 
-// toDo Transform this module in a standalone component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,27 +16,37 @@ import { AppState } from 'app-state';
 export class HomeComponent implements OnInit {
   collections: ICollection[] = [];
   isLoading: boolean = false;
+  breadcrumbs: Array<{ label: string; link?: string }> = [{ label: 'Collections' }];
   private subscriptions = new Subscription();
 
-  constructor(private unsplashService: UnsplashService, private changeDetectorRef: ChangeDetectorRef, private store: Store<AppState>) {}
+  constructor(
+    private unsplashService: UnsplashService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<AppState>,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
 
-    // toDo Could we add a pagination?
     const subscription = this.unsplashService.listCollections().subscribe(collections => {
       this.collections = collections?.response?.results || [];
       this.isLoading = false;
-      this.changeDetectorRef.markForCheck(); // Notify Angular to check updates
+      this.changeDetectorRef.markForCheck();
     });
     this.subscriptions.add(subscription);
 
-    // Dispatch the action to load collections
     this.store.dispatch(loadCollections());
 
-    // Select the collections from the store
-    this.store.pipe(select(state => state.collections)).subscribe(collections => {
-      this.collections = collections;
+    this.store.pipe(select(state => state.collections)).subscribe(stateCollections => {
+      this.collections = stateCollections;
+
+      this.breadcrumbs = [{ label: 'Collections' }];
+      if (this.collections.length > 0) {
+        this.breadcrumbs = [{ label: this.translateService.instant('Collections') }];
+      }
+
+      this.store.dispatch(updateBreadcrumbs({ breadcrumbs: this.breadcrumbs }));
     });
   }
 

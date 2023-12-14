@@ -1,0 +1,49 @@
+.breadcrumbs {
+  background-color: rgb(7 174 197 / 20%);
+  padding: 0 16px;
+  line-height: 36px;
+  cursor: pointer;
+  text-decoration: none;
+
+  a {
+    margin-right: 4px;
+  }
+  span {
+    margin: 0 4px;
+    text-decoration: none;
+  }
+}
+
+.mat-app-background {
+  background-color: #e3e3e3;
+}
+
+.gallery {
+  max-width: 86vw;
+  margin: 0 auto;
+  padding: 12px;
+  place-content: center;
+
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+
+  .gallery-item {
+    margin: 12px;
+    border-radius: 12px;
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+}
+
+.photo-image {
+  max-width: 100%;
+  max-height: 600px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}

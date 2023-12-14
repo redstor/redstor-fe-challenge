@@ -14,11 +14,9 @@
 
 <nav class="breadcrumbs" aria-label="breadcrumb">
     <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
-        <a *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link">{{ breadcrumb.label }}</a>
-        <span *ngIf="!breadcrumb.link" class="active">{{ breadcrumb.label }}</span>
+        <a *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link">{{ breadcrumb.label | translate }}</a>
+        <a *ngIf="!breadcrumb.link && i === 0" [routerLink]="'/'">{{ breadcrumb.label | translate }}</a>
+        <span *ngIf="!breadcrumb.link && i !== 0" class="active">{{ breadcrumb.label | translate }}</span>
         <span aria-hidden="true" *ngIf="i < breadcrumbs.length - 1">&gt;</span>
     </ng-container>
 </nav>
-<div class="layout-container">
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-</div>

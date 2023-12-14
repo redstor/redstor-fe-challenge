@@ -7,12 +7,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shared-header',
   templateUrl: './shared-header.component.html',
+  styleUrls: ['./shared-header.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatProgressBarModule, MatMenuModule, MatIconModule, RouterModule, TranslateModule]
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatIconModule,
+    RouterModule,
+    TranslateModule,
+    CommonModule
+  ]
 })
 export class SharedHeaderComponent {
   @Input() toolbarTitle: string = '';

@@ -1,14 +1,4 @@
-<mat-toolbar>
-  <span i18n="@@toolbarTitle">Redstor FE Challenger3</span>
-</mat-toolbar>
-
-<nav class="breadcrumbs" aria-label="breadcrumb">
-  <a routerLink="/" i18n="@@breadcrumbsCollections">Collections</a>
-  <span aria-hidden="true">&gt;</span>
-  <a (click)="handleGotoCollection()" i18n="@@breadcrumbsCollection">Collection</a>
-  <span aria-hidden="true">&gt;</span>
-  <span class="active" i18n="@@breadcrumbsPhoto">Photo</span>
-</nav>
+<app-shared-header [toolbarTitle]="'Redstor FE Challenger'" [breadcrumbs]="breadcrumbs"></app-shared-header>
 
 <div class="layout-container">
   <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
