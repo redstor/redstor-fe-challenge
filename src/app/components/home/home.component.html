@@ -1,27 +1,24 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
+<app-shared-header [toolbarTitle]="'Redstor FE Challenger'" [breadcrumbs]="breadcrumbs"
+  [isLoading]="isLoading"></app-shared-header>
 
-<!-- toDo Could you optimise this piece of code? -->
-<div class="breadcrumbs">
-  <a class="active"><span>Collections</span></a>
-</div>
+<div class="layout-container home">
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-<div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
-
-  <div class="gallery">
-    <!-- toDo Is there another way to rewrite this with new Angular 17 features? -->
-    <ng-container *ngFor="let collection of collections">
-      <!-- toDO Could you improve the styling to be responsive? -->
-      <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
-        <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
-        <mat-card-content>
-          <p class="title">{{ collection.title }}</p>
-        </mat-card-content>
-      </mat-card>
+  <div class="gallery" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.xs="column">
+    <ng-container *ngIf="collections; else loading">
+      <div *ngFor="let collection of collections">
+        <mat-card class="gallery-item thumbnails" [routerLink]="['/collection', collection.id]">
+          <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.title" />
+          <mat-card-content>
+            <p class="title">{{ collection.title }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </ng-container>
+
   </div>
+
+  <ng-template #loading>
+    <p>Loading collections...</p>
+  </ng-template>
 </div>

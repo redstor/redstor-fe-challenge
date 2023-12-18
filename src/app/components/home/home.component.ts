@@ -1,30 +1,60 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
+import { Subscription, Observable } from 'rxjs';
+import { loadCollections } from '../../store/collection/collection.actions';
+import { AppState } from 'app-state';
+import { TranslateService } from '@ngx-translate/core';
+import { updateBreadcrumbs } from '../../store/breadcrumb/breadcrumb.actions';
 
-// toDo Transform this module in a standalone component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  readonly unsplashService: UnsplashService = inject(UnsplashService);
-
-  // toDo Why the changes are not reflected in the UI?
-  isLoading: boolean = false;
   collections: ICollection[] = [];
+  isLoading: boolean = false;
+  breadcrumbs: Array<{ label: string; link?: string }> = [{ label: 'Collections' }];
+  private subscriptions = new Subscription();
+
+  constructor(
+    private unsplashService: UnsplashService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<AppState>,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    // toDo Improve this call using the store (ngrx)
     this.isLoading = true;
 
-    // toDo What's happening with this subscription in case the component is destroyed?
-    // toDo Is there another way to do this operation?
-    // toDo Could we add a pagination?
-    this.unsplashService.listCollections().subscribe(collections => {
+    const subscription = this.unsplashService.listCollections().subscribe(collections => {
       this.collections = collections?.response?.results || [];
       this.isLoading = false;
+      this.changeDetectorRef.markForCheck();
     });
+    this.subscriptions.add(subscription);
+
+    this.store.dispatch(loadCollections());
+
+    this.store.pipe(select(state => state.collections)).subscribe(stateCollections => {
+      if (Array.isArray(stateCollections)) {
+        this.collections = stateCollections;
+      } else {
+        this.collections = [];
+      }
+
+      this.breadcrumbs = [{ label: 'Collections' }];
+      if (this.collections.length > 0) {
+        this.breadcrumbs = [{ label: this.translateService.instant('Collections') }];
+      }
+
+      this.store.dispatch(updateBreadcrumbs({ breadcrumbs: this.breadcrumbs }));
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -30,8 +30,8 @@ export interface IPhoto {
       medium: string;
       small: string;
     };
-    portfolio_url: string;
-    location: string;
+    portfolio_url?: string | null;
+    location?: string | null;
   };
   likes: number;
   views: number;

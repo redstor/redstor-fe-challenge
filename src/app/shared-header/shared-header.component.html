@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>{{ toolbarTitle }}</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="langMenu">
+        <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #langMenu="matMenu">
+        <button mat-menu-item (click)="changeLanguage('en')">English</button>
+        <button mat-menu-item (click)="changeLanguage('pt')">Português</button>
+        <button mat-menu-item (click)="changeLanguage('es')">Español</button>
+        <button mat-menu-item (click)="changeLanguage('fr')">Français</button>
+    </mat-menu>
+</mat-toolbar>
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+    <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
+        <a *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link">{{ breadcrumb.label | translate }}</a>
+        <a *ngIf="!breadcrumb.link && i === 0" [routerLink]="'/'">{{ breadcrumb.label | translate }}</a>
+        <span *ngIf="!breadcrumb.link && i !== 0" class="active">{{ breadcrumb.label | translate }}</span>
+        <span aria-hidden="true" *ngIf="i < breadcrumbs.length - 1">&gt;</span>
+    </ng-container>
+</nav>

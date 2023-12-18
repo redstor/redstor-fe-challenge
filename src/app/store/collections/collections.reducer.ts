@@ -1,4 +1,4 @@
-import { ICollection } from '@app/interfaces';
+import { ICollection, IPhoto } from '@app/interfaces';
 import { createReducer, on } from '@ngrx/store';
 import { CollectionsActions } from './collections.actions';
 
@@ -6,6 +6,11 @@ export const collectionsFeatureKey = 'collections';
 
 export interface State {
   collections: ICollection[];
+}
+
+export interface CollectionState {
+  photos: IPhoto[];
+  isLoading: boolean;
 }
 
 export const initialState: State = {
