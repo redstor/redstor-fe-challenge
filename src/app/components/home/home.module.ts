@@ -4,11 +4,29 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  }
+]
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule],
+  imports: [
+     CommonModule,
+     RouterModule.forChild(routes),
+     MatToolbarModule,
+     MatProgressBarModule, 
+     MatCardModule
+  ],
   exports: [HomeComponent]
 })
 export class HomeModule {}

@@ -22,11 +22,11 @@
       <!-- toDO Why is throwing some console errors? -->
 
       <mat-card-header>
-        <img mat-card-avatar [src]="photo.user.profile_image.medium" />
-        <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="photo.user.location">
+        <img mat-card-avatar [src]="photo?.user?.profile_image?.medium" />
+        <mat-card-title>{{ photo?.user?.first_name }} {{ photo?.user?.last_name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="photo?.user?.location">
           <mat-icon inline>where_to_vote</mat-icon>
-          {{ photo.user.location }}
+          {{ photo?.user?.location }}
         </mat-card-subtitle>
       </mat-card-header>
 
