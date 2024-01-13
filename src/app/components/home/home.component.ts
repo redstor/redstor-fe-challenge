@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
     // toDo Could we add a pagination?
     this.unsplashService.listCollections().subscribe(collections => {
       this.collections = collections?.response?.results || [];
+      console.log('collection re naw',this.collections, collections);
       this.isLoading = false;
     });
   }

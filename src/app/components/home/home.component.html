@@ -17,7 +17,7 @@
     <ng-container *ngFor="let collection of collections">
       <!-- toDO Could you improve the styling to be responsive? -->
       <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
-        <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
+        <img mat-card-image [src]="collection?.cover_photo?.urls?.small" [alt]="collection?.cover_photo?.description" />
         <mat-card-content>
           <p class="title">{{ collection.title }}</p>
         </mat-card-content>
