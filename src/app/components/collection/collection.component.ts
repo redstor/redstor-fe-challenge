@@ -7,7 +7,7 @@ import { UnsplashService } from '@app/services';
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionComponent implements OnInit {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);

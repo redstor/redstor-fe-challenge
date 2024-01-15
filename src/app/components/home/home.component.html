@@ -1,29 +1,59 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
-
+<!-- toDo Could you optimise this piece of code?
+    Solution: To solve this across all the three components to reduce redundancy 
+    the piece of code need to be taken.
+-->
+<app-header></app-header>
 <!-- toDo Could you optimise this piece of code? -->
 <div class="breadcrumbs">
   <a class="active"><span>Collections</span></a>
 </div>
 
-<h2>Home Re Naw</h2>
 
-<div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+<!-- <div class="layout-container" > -->
 
-  <div class="gallery">
-    <!-- toDo Is there another way to rewrite this with new Angular 17 features? -->
-    <ng-container *ngFor="let collection of collections">
-      <!-- toDO Could you improve the styling to be responsive? -->
-      <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
-        <img mat-card-image [src]="collection?.cover_photo?.urls?.small" [alt]="collection?.cover_photo?.description" />
-        <mat-card-content>
-          <p class="title">{{ collection.title }}</p>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
-  </div>
-</div>
+  <section>
+    <!-- toDo Could you optimise this piece of code?
+    
+    
+    -->
+    <mat-progress-bar *ngIf="collectionsFacade.loading$()"></mat-progress-bar>
+
+
+    <!-- toDo Is there another way to rewrite this with new Angular 17 features?
+      
+      Solution: The code below shows the usage of angular 17 feature @for.
+    
+    -->
+  @for (collection of collectionsFacade.collections$(); track $index) {
+    <!-- toDO Could you improve the styling to be responsive? 
+      Solution:  The 
+    -->
+    <div class="card" >
+      <div class="card__img"  [routerLink]="'/collection/' + collection.id"> 
+              <img  [src]="collection?.cover_photo?.urls?.small" [alt]="collection?.cover_photo?.description">
+              <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  4.5
+              </span>
+              <div class="card__overlay">
+                <h2>{{ collection.title }}</h2>
+              </div>
+      </div>
+    </div>
+  }
+  <div class="margin-bottom"></div>
+</section>
+<!-- Pagination section start -->
+    <div class="footer" style="display: block; position: relative; margin-top: 1rem;">
+            <mat-paginator 
+              [length]="collectionsFacade.totalItems$()"
+              [pageIndex]="page"
+              [pageSize]="perPage"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="getPageEvent($event)"
+              aria-label="Select page">
+            </mat-paginator>
+    </div>
+<!-- Pagination section ends -->

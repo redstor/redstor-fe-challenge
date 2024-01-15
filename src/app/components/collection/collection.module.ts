@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '@app/shared/shared.module';
 const routes: Routes = [
   {
     path: ':collectionId',
@@ -20,7 +21,8 @@ const routes: Routes = [
      MatToolbarModule,
      MatProgressBarModule, 
      MatCardModule,
-     MatIconModule
+     MatIconModule,
+     SharedModule
     ],
   exports: [CollectionComponent]
 })

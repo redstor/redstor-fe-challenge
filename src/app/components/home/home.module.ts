@@ -19,7 +19,7 @@ const routes: Routes = [
   }
 ]
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [],
   imports: [
      CommonModule,
      RouterModule.forChild(routes),
@@ -27,6 +27,6 @@ const routes: Routes = [
      MatProgressBarModule, 
      MatCardModule
   ],
-  exports: [HomeComponent]
+  exports: []
 })
 export class HomeModule {}

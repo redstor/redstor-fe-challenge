@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PhotoComponent } from './photo.component';
+import { SharedModule } from '@app/shared/shared.module';
 const routes: Routes = [
   {
     path: ':collectionId/photo/:photoId',
@@ -20,7 +21,8 @@ const routes: Routes = [
     MatToolbarModule, 
     MatProgressBarModule, 
     MatCardModule, 
-    MatIconModule
+    MatIconModule,
+    SharedModule
   ],
   exports: [PhotoComponent]
 })
