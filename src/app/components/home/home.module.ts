@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
      RouterModule.forChild(routes),
      MatToolbarModule,
      MatProgressBarModule, 
-     MatCardModule
+     MatCardModule,
+     TranslateModule.forChild({}),
   ],
   exports: []
 })

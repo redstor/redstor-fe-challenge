@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {  TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     CommonModule,
     MatToolbarModule,
+    TranslateModule.forChild(),
   ],
   exports: [
     HeaderComponent

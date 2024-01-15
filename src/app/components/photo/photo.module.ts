@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PhotoComponent } from './photo.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 const routes: Routes = [
   {
     path: ':collectionId/photo/:photoId',
@@ -22,7 +23,8 @@ const routes: Routes = [
     MatProgressBarModule, 
     MatCardModule, 
     MatIconModule,
-    SharedModule
+    SharedModule,
+    TranslateModule.forChild({}),
   ],
   exports: [PhotoComponent]
 })

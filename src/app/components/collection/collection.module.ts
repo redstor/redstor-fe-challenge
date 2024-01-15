@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 const routes: Routes = [
   {
     path: ':collectionId',
@@ -22,7 +23,8 @@ const routes: Routes = [
      MatProgressBarModule, 
      MatCardModule,
      MatIconModule,
-     SharedModule
+     SharedModule,
+     TranslateModule.forChild({})
     ],
   exports: [CollectionComponent]
 })
