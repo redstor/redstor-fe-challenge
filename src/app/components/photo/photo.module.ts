@@ -7,10 +7,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PhotoComponent } from './photo.component';
 import { BreadcrumbModule } from '../breadcrumb';
+import { RSSentenceCasePipeModule } from '../../core/pipes/sentence-case/rs-sentence-case-pipe.module';
 
 @NgModule({
   declarations: [PhotoComponent],
   imports: [
+    RSSentenceCasePipeModule,
     BreadcrumbModule,
     CommonModule,
     RouterModule.forChild([{path:'', component: PhotoComponent}]),
