@@ -11,10 +11,12 @@ import { CollectionsEffects, metaReducers, reducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@environments/environment';
+import { ToolbarModule } from './layouts/toolbar';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ToolbarModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
