@@ -10,12 +10,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { NavHeaderModule } from '../nav-header';
 
 
 @Component({
   standalone: true,
 
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, NavHeaderModule],
 
   selector: 'app-home',
   templateUrl: './home.component.html',
