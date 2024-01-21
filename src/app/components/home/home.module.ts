@@ -8,7 +8,13 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([{path:'', component: HomeComponent}]),
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatCardModule
+  ],
   exports: [HomeComponent]
 })
 export class HomeModule {}

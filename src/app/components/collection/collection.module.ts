@@ -9,7 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CollectionComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([{path:'', component: CollectionComponent}]),
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatIconModule
+  ],
   exports: [CollectionComponent]
 })
 export class CollectionModule {}
