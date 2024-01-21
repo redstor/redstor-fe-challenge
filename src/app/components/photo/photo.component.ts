@@ -21,8 +21,7 @@ export class PhotoComponent implements OnInit {
 
     this.unsplashService.getPhoto(photoId).subscribe(photo => {
       // toDo Is there a better way to improve this object mapping?
-      console.log(photo)
-      this.photo$.next(photo.response as unknown as IPhoto);
+    this.photo$.next(photo.response as unknown as IPhoto);
 
     });
   }
