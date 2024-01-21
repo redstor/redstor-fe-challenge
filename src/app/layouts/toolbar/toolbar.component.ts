@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,4 +8,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class ToolbarComponent {
 
+  constructor(private translate: TranslateService) { }
+
+  changeLangToEN():void
+  {
+    this.translate.use('en');
+  }
+
+  changeLangToFA():void
+  {
+    this.translate.use('fa');
+  }
 }

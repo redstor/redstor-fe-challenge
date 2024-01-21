@@ -14,6 +14,9 @@ import { environment } from '@environments/environment';
 import { ToolbarModule } from './layouts/toolbar';
 import { loadingReducers } from './store/loading';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpLoaderFactory, translateFactory } from './app.translate';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +26,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
 
     // Store
     // toDo Is there a way to load the store just for the module or component in use?
@@ -30,7 +41,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     EffectsModule.forRoot([CollectionsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
+  providers: [
+    translateFactory
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbModule } from '../breadcrumb';
 import { RouterModule } from '@angular/router';
-import { CollectionsFacade, State } from '../../store';
+import { CollectionsFacade } from '../../store';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   breadcrumbs: IBreadcrumb[] = [
     {
-      title: 'Collections',
+      title: 'HOME.COLLECTIONS',
       link: ''
     }
   ];

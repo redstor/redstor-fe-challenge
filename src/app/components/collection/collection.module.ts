@@ -7,10 +7,12 @@ import { RouterModule } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbModule } from '../breadcrumb';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CollectionComponent],
   imports: [
+    TranslateModule,
     BreadcrumbModule,
     CommonModule,
     RouterModule.forChild([{path:'', component: CollectionComponent}]),

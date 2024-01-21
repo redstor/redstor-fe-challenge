@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { LoadingSelectors, State } from './store/loading';
-import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
