@@ -6,7 +6,7 @@
 
   <div class="gallery">
     <!-- toDo Is there another way to rewrite this with new Angular 17 features? -->
-    <ng-container *ngFor="let collection of collections">
+    <ng-container *ngFor="let collection of collections$ | async">
       <!-- toDO Could you improve the styling to be responsive? -->
       <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
         <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />

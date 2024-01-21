@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbModule } from '../breadcrumb';
 import { RouterModule } from '@angular/router';
+import { Observable, finalize, map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -25,9 +26,9 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit {
   readonly unsplashService: UnsplashService = inject(UnsplashService);
 
-  // toDo Why the changes are not reflected in the UI?
+  collections$! : Observable<ICollection[]>;
+
   isLoading: boolean = false;
-  collections: ICollection[] = [];
 
   breadcrumbs: IBreadcrumb[] = [
     {
@@ -40,12 +41,12 @@ export class HomeComponent implements OnInit {
     // toDo Improve this call using the store (ngrx)
     this.isLoading = true;
 
-    // toDo What's happening with this subscription in case the component is destroyed?
-    // toDo Is there another way to do this operation?
     // toDo Could we add a pagination?
-    this.unsplashService.listCollections().subscribe(collections => {
-      this.collections = collections?.response?.results || [];
-      this.isLoading = false;
-    });
+    this.collections$ = this.unsplashService.listCollections().pipe(
+      map(collections => {
+        return collections.response?.results ?? [];
+      }),
+      finalize(() => this.isLoading = false)
+    );
   }
 }
