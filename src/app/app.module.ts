@@ -13,10 +13,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@environments/environment';
 import { ToolbarModule } from './layouts/toolbar';
 import { loadingReducers } from './store/loading';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    MatProgressBarModule,
     ToolbarModule,
     BrowserModule,
     AppRoutingModule,

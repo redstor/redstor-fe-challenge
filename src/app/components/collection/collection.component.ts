@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBreadcrumb, IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
+import { Store } from '@ngrx/store';
+import { LoadingActions, State } from '../../store/loading';
 
 @Component({
   selector: 'app-collection',
@@ -28,13 +30,19 @@ export class CollectionComponent implements OnInit {
     }
   ];
 
+  constructor(
+    private store: Store<State>,
+  ) { }
+
   ngOnInit(): void {
     this.isLoading.set(true);
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
 
+    this.store.dispatch(LoadingActions.showLoading());
+
     this.unsplashService.listCollectionPhotos(collectionId).subscribe(photos => {
       this.photos$.next(photos?.response?.results || []);
-      this.isLoading.set(false);
+      this.store.dispatch(LoadingActions.hideLoading());
     });
   }
 

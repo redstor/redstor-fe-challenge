@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IBreadcrumb, IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 import { BehaviorSubject, Observable, finalize, map } from 'rxjs';
+import { LoadingActions, State } from '../../store/loading';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-photo',
@@ -32,17 +34,21 @@ export class PhotoComponent implements OnInit {
     }
   ];
 
+  constructor(
+      private store: Store<State>,
+    ) { }
+
     ngOnInit(): void {
       const photoId = this.activatedRoute.snapshot.params['photoId'];
 
-      this.isLoading$.next(true);
+      this.store.dispatch(LoadingActions.showLoading());
 
       this.photo$ = this.unsplashService.getPhoto(photoId).pipe(
         map(photo => {
           return photo.response as IPhoto & typeof photo.response;
         }),
         finalize(() => {
-          this.isLoading$.next(false);
+          this.store.dispatch(LoadingActions.hideLoading());
         })
       );
     }
