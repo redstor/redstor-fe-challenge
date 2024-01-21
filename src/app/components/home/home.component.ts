@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, Signal } from '@angular/core';
 import { IBreadcrumb, ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 import { MatCardModule } from '@angular/material/card';
@@ -7,7 +7,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbModule } from '../breadcrumb';
 import { RouterModule } from '@angular/router';
-import { Observable, finalize, map } from 'rxjs';
+import { Observable} from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { CollectionsFacade, State } from '../../store';
+import { LoadingSelectors } from '../../store/loading/loading.selectors';
 
 @Component({
   selector: 'app-home',
@@ -26,9 +29,7 @@ import { Observable, finalize, map } from 'rxjs';
 export class HomeComponent implements OnInit {
   readonly unsplashService: UnsplashService = inject(UnsplashService);
 
-  collections$! : Observable<ICollection[]>;
-
-  isLoading: boolean = false;
+  collections$! : Signal<ICollection[]>;
 
   breadcrumbs: IBreadcrumb[] = [
     {
@@ -36,17 +37,18 @@ export class HomeComponent implements OnInit {
       link: ''
     }
   ];
+  isLoading$!: Observable<boolean>;
+
+  constructor(
+    private store: Store<State>,
+    private collectionsFacade : CollectionsFacade
+  ) {}
 
   ngOnInit(): void {
-    // toDo Improve this call using the store (ngrx)
-    this.isLoading = true;
-
     // toDo Could we add a pagination?
-    this.collections$ = this.unsplashService.listCollections().pipe(
-      map(collections => {
-        return collections.response?.results ?? [];
-      }),
-      finalize(() => this.isLoading = false)
-    );
+
+    this.isLoading$ = this.store.pipe(select(LoadingSelectors.selectLoading));
+    this.collectionsFacade.loadCollections();
+    this.collections$ = this.collectionsFacade.collections$;
   }
 }

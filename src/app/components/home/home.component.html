@@ -2,10 +2,10 @@
 
 <div class="layout-container">
   <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
 
   <div class="gallery">
-    @for (collection of collections$ | async; track collection.id) {
+    @for (collection of collections$(); track collection.id) {
       <!-- toDO Could you improve the styling to be responsive? -->
       <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
         <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
