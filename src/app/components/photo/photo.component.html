@@ -7,8 +7,6 @@
   <div class="gallery" fxLayout.sm="column">
     <!-- toDO Could you improve the styling to be responsive? -->
     <mat-card *ngIf="photo$ | async as photo" class="preview">
-      <!-- toDO Why is throwing some console errors? -->
-
       <mat-card-header>
         <img mat-card-avatar [src]="photo.user.profile_image.medium" />
         <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
@@ -35,7 +33,7 @@
         </div>
       </mat-card-content>
 
-      <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
+      <img mat-card-image style="width: 100%;" [src]="photo.urls.full" [alt]="photo.alt_description" />
     </mat-card>
   </div>
 </div>

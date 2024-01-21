@@ -1,21 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBreadcrumb, IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, map } from 'rxjs';
 
-// toDo Is there a way to improve the rendering strategy in this component?
 @Component({
   selector: 'app-photo',
-  templateUrl: './photo.component.html'
+  templateUrl: './photo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhotoComponent implements OnInit {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
   private readonly router: Router = inject(Router);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  readonly photo$: BehaviorSubject<IPhoto> = new BehaviorSubject<IPhoto>({} as IPhoto);
-  readonly isLoading$: Observable<boolean> = this.photo$.pipe(map(p => !p));
+  photo$!: Observable<IPhoto>;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   breadcrumbs: IBreadcrumb[] = [
     {
@@ -32,12 +32,19 @@ export class PhotoComponent implements OnInit {
     }
   ];
 
-  ngOnInit(): void {
-    const photoId = this.activatedRoute.snapshot.params['photoId'];
-
-    this.unsplashService.getPhoto(photoId).subscribe(photo => {
+    ngOnInit(): void {
+      const photoId = this.activatedRoute.snapshot.params['photoId'];
       // toDo Is there a better way to improve this object mapping?
-      this.photo$.next(photo.response as unknown as IPhoto);
-    });
+
+      this.isLoading$.next(true);
+
+      this.photo$ = this.unsplashService.getPhoto(photoId).pipe(
+        map(photo => {
+          return photo.response as unknown as IPhoto;
+        }),
+        finalize(() => {
+          this.isLoading$.next(false);
+        })
+      );
+    }
   }
-}
