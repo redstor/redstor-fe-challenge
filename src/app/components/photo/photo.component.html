@@ -1,16 +1,7 @@
-<!-- toDo Could you optimise this piece of code? -->
-<mat-toolbar>
-  <span>Redstor FE Challenger</span>
-</mat-toolbar>
 
-<!-- toDo Could you optimise this piece of code? -->
-<div class="breadcrumbs">
-  <a routerLink="/"><span>Collections</span></a>
-  <span>></span>
-  <a (click)="handleGotoCollection()"><span>Collection</span></a>
-  <span>></span>
-  <a class="active"><span>Photo</span></a>
-</div>
+
+<app-nav-header menuLabel="Photos"></app-nav-header>
+
 
 <div class="layout-container">
   <!-- toDo Could you optimise this piece of code? -->
@@ -22,11 +13,11 @@
       <!-- toDO Why is throwing some console errors? -->
 
       <mat-card-header>
-        <img mat-card-avatar [src]="photo.user.profile_image.medium" />
-        <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="photo.user.location">
+        <img mat-card-avatar [src]="photo?.user?.profile_image?.medium" />
+        <mat-card-title>{{ photo?.user?.first_name }} {{ photo?.user?.last_name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="photo?.user?.location">
           <mat-icon inline>where_to_vote</mat-icon>
-          {{ photo.user.location }}
+          {{ photo?.user?.location }}
         </mat-card-subtitle>
       </mat-card-header>
 
@@ -34,7 +25,10 @@
         <div>
           <div>
             <!-- toDO Is there another way to do this operation? -->
-            <p>{{ photo.description?.charAt(0)?.toUpperCase() }}{{ photo.description?.slice(1) }}</p>
+            @if (!!photo.description) {
+            <p>{{ photo.description | titlecase }}{{ photo.description.slice(1) }}</p>
+
+            }
           </div>
           <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
             <p fxLayoutAlign="center">
@@ -47,7 +41,7 @@
         </div>
       </mat-card-content>
 
-      <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
+      <img mat-card-image [src]="photo?.urls?.full" [alt]="photo?.alt_description" />
     </mat-card>
   </div>
 </div>

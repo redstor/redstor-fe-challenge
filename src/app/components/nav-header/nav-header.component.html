@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>Redstor FE Challenger</span>
+</mat-toolbar>
+  
+  <!-- toDo Could you optimise this piece of code? -->
+  <div class="breadcrumbs">
+    <a [ngClass]="{'active':isMenuActive('Collections')}"  (click)="handleGotoCollections()" routerLink="/"><span>Collections</span></a>
+    @if (menuLabel==="Photos"|| menuLabel==="Collection") {
+    <span>></span>
+
+    <a [ngClass]="{'active':isMenuActive('Collection')}" (click)="handleGotoCollection()"><span>Collection</span></a>
+
+
+
+    }
+    @if (menuLabel==="Photos") {
+        <span>></span>
+        <a [ngClass]="{'active':isMenuActive('Photos')}"><span>Photo</span></a>
+    }
+
+
+  </div> 
