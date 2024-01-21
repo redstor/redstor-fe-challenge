@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ICollection } from '@app/interfaces';
+import { IBreadcrumb, ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 
 // toDo Transform this module in a standalone component
@@ -14,6 +14,13 @@ export class HomeComponent implements OnInit {
   // toDo Why the changes are not reflected in the UI?
   isLoading: boolean = false;
   collections: ICollection[] = [];
+
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      title: 'Collections',
+      link: ''
+    }
+  ];
 
   ngOnInit(): void {
     // toDo Improve this call using the store (ngrx)

@@ -6,10 +6,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BreadcrumbModule } from '../breadcrumb';
 
 @NgModule({
   declarations: [CollectionComponent],
   imports: [
+    BreadcrumbModule,
     CommonModule,
     RouterModule.forChild([{path:'', component: CollectionComponent}]),
     MatToolbarModule,

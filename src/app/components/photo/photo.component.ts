@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPhoto } from '@app/interfaces';
+import { IBreadcrumb, IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
@@ -17,6 +17,21 @@ export class PhotoComponent implements OnInit {
   readonly photo$: BehaviorSubject<IPhoto> = new BehaviorSubject<IPhoto>({} as IPhoto);
   readonly isLoading$: Observable<boolean> = this.photo$.pipe(map(p => !p));
 
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      title: 'Collections',
+      link: '/'
+    },
+    {
+      title: 'Collection',
+      link: `/collection/${this.activatedRoute.snapshot.params['collectionId']}`
+    },
+    {
+      title: 'Photo',
+      link: ''
+    }
+  ];
+
   ngOnInit(): void {
     const photoId = this.activatedRoute.snapshot.params['photoId'];
 
@@ -24,10 +39,5 @@ export class PhotoComponent implements OnInit {
       // toDo Is there a better way to improve this object mapping?
       this.photo$.next(photo.response as unknown as IPhoto);
     });
-  }
-
-  handleGotoCollection() {
-    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
-    return this.router.navigate(['collection', collectionId]);
   }
 }

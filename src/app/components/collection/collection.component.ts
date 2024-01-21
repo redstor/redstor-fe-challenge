@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPhoto } from '@app/interfaces';
+import { IBreadcrumb, IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
 
 @Component({
@@ -17,6 +17,17 @@ export class CollectionComponent implements OnInit {
   readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
   // toDo Is there another way using new Angular features to replace rjxs
   readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      title: 'Collections',
+      link: '/'
+    },
+    {
+      title: 'Collection',
+      link: ''
+    }
+  ];
 
   ngOnInit(): void {
     this.isLoading$.next(true);
