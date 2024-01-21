@@ -5,7 +5,7 @@ import { HomeComponent, CollectionComponent, PhotoComponent } from './components
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)
+    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
    },
   {
     path: 'collection/:collectionId',
