@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent, CollectionComponent, PhotoComponent } from './components';
+import { CollectionComponent, PhotoComponent } from './components';
+import { HomeComponent } from './components/home/home.component';
 
 // toDo How could we improve this routing?
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), HomeComponent],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

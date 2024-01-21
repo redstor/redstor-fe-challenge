@@ -11,18 +11,17 @@ import { ICollection, IPhoto } from '@app/interfaces';
 })
 export class UnsplashService {
   api;
-
   constructor() {
     this.api = createApi({ accessKey: environment.unsplashAccessKey });
   }
 
-  listCollections(): Observable<
+  listCollections(page: number = 1): Observable<
     ApiResponse<{
       results: ICollection[];
       total: number;
     }>
   > {
-    return from(this.api.collections.list({}));
+    return from(this.api.collections.list({ page: page }));
   }
 
   listCollectionPhotos(id: string): Observable<
@@ -31,10 +30,12 @@ export class UnsplashService {
       total: number;
     }>
   > {
+
     return from(this.api.collections.getPhotos({ collectionId: id }));
   }
 
   getPhoto(id: string): Observable<ApiResponse<Full>> {
+
     return from(this.api.photos.get({ photoId: id }));
   }
 }
