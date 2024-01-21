@@ -21,7 +21,6 @@ export class NavHeaderComponent {
   }
 
   isMenuActive(label:string){
-    console.log(this.menuLabel)
     return label===this.menuLabel
   }
 
