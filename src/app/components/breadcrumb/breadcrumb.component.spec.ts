@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BreadcrumbComponent } from './breadcrumb.component';
-import { provideMockStore } from '@ngrx/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;
@@ -10,10 +10,13 @@ describe('BreadcrumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideMockStore()],
-      declarations: [BreadcrumbComponent],
-      imports: [RouterTestingModule.withRoutes([])]
-    }).compileComponents();
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
+      declarations: [ BreadcrumbComponent ]
+    })
+    .overrideComponent(BreadcrumbComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default } // Override change detection strategy for testing
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -24,5 +27,12 @@ describe('BreadcrumbComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have breadcrumbs', () => {
+    component.breadcrumbs = [{title: 'Home', link: '/home'}, {title: 'About', link: '/about'}];
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelectorAll('a').length).toBe(2);
   });
 });

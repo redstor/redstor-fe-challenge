@@ -1,28 +1,43 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ToolbarComponent } from './toolbar.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
   let fixture: ComponentFixture<ToolbarComponent>;
+  let translateService: TranslateService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideMockStore()],
-      declarations: [ToolbarComponent],
-      imports: [RouterTestingModule.withRoutes([])]
-    }).compileComponents();
-  });
+      declarations: [ ToolbarComponent ],
+      imports: [
+        TranslateModule.forRoot(),
+        MatToolbarModule
+       ],
+      providers: [ TranslateService ]
+    })
+    .compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    translateService = TestBed.inject(TranslateService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+  });
+
+  it('should change language to English', () => {
+    spyOn(translateService, 'use');
+    component.changeLangToEN();
+    expect(translateService.use).toHaveBeenCalledWith('en');
+  });
+
+  it('should change language to Farsi', () => {
+    spyOn(translateService, 'use');
+    component.changeLangToFA();
+    expect(translateService.use).toHaveBeenCalledWith('fa');
   });
 });
