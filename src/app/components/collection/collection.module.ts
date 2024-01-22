@@ -6,10 +6,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BreadcrumbModule } from '../breadcrumb';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CollectionComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [
+    TranslateModule,
+    BreadcrumbModule,
+    CommonModule,
+    RouterModule.forChild([{path:'', component: CollectionComponent}]),
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatIconModule
+  ],
   exports: [CollectionComponent]
 })
 export class CollectionModule {}

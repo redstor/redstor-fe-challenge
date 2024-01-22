@@ -2,7 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { UnsplashService } from '@app/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CollectionsActions } from './collections.actions';
-import { map, switchMap } from 'rxjs';
+import { concat, concatMap, map, of } from 'rxjs';
+import { LoadingActions } from '../loading/loading.actions';
 
 @Injectable()
 export class CollectionsEffects {
@@ -12,7 +13,8 @@ export class CollectionsEffects {
   loadCollections$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CollectionsActions.loadCollections),
-      switchMap(() =>
+      concatMap(action => concat(
+        of(LoadingActions.showLoading()),
         this.unsplash
           .listCollections()
           .pipe(
@@ -21,8 +23,9 @@ export class CollectionsEffects {
                 ? CollectionsActions.loadCollectionsSuccess(result.response.results || [])
                 : CollectionsActions.loadCollectionsFailure()
             )
-          )
+          ),
+        of(LoadingActions.hideLoading())
       )
     )
-  );
+  ))
 }

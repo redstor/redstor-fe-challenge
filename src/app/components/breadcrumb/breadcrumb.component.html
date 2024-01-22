@@ -1,0 +1,7 @@
+<div class="breadcrumbs">
+  <ng-container *ngFor="let item of breadcrumbs;let last = last">
+    <a *ngIf="item.link" [routerLink]="item.link" [class.active]="last"><span>{{item.title | translate}}</span></a>
+    <a *ngIf="!item.link" [class.active]="last"><span>{{item.title | translate}}</span></a>
+    <span *ngIf="!last">></span>
+  </ng-container>
+</div>

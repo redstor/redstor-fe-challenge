@@ -1,7 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { LoadingSelectors, State } from './store/loading';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {}
+export class AppComponent {
+
+  isLoading$ = this.store.pipe(select(LoadingSelectors.selectLoading));
+
+  constructor(
+    private store: Store<State>,
+  ) {}
+
+}

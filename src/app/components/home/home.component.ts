@@ -1,30 +1,45 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ICollection } from '@app/interfaces';
+import { Component, OnInit, inject, ChangeDetectionStrategy, Signal } from '@angular/core';
+import { IBreadcrumb, ICollection } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
+import { BreadcrumbModule } from '../breadcrumb';
+import { RouterModule } from '@angular/router';
+import { CollectionsFacade } from '../../store';
 
-// toDo Transform this module in a standalone component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    RouterModule,
+    BreadcrumbModule,
+    CommonModule,
+    MatToolbarModule,
+    MatCardModule
+  ]
 })
 export class HomeComponent implements OnInit {
   readonly unsplashService: UnsplashService = inject(UnsplashService);
 
-  // toDo Why the changes are not reflected in the UI?
-  isLoading: boolean = false;
-  collections: ICollection[] = [];
+  collections$! : Signal<ICollection[]>;
+
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      title: 'HOME.COLLECTIONS',
+      link: ''
+    }
+  ];
+
+  constructor(
+    private collectionsFacade : CollectionsFacade
+  ) {}
 
   ngOnInit(): void {
-    // toDo Improve this call using the store (ngrx)
-    this.isLoading = true;
-
-    // toDo What's happening with this subscription in case the component is destroyed?
-    // toDo Is there another way to do this operation?
     // toDo Could we add a pagination?
-    this.unsplashService.listCollections().subscribe(collections => {
-      this.collections = collections?.response?.results || [];
-      this.isLoading = false;
-    });
+    this.collectionsFacade.loadCollections();
+    this.collections$ = this.collectionsFacade.collections$;
   }
 }
