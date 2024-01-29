@@ -1,31 +1,40 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { UnsplashService } from '@app/services';
+import { BehaviorSubject, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
   private readonly router: Router = inject(Router);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
-  readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
+  photos$ = signal([] as IPhoto[]);
+
   // toDo Is there another way using new Angular features to replace rjxs
-  readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoading$ = signal(false);
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.isLoading$.next(true);
+    this.isLoading$.set(true);
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
 
-    this.unsplashService.listCollectionPhotos(collectionId).subscribe(photos => {
-      this.photos$.next(photos?.response?.results || []);
-      this.isLoading$.next(false);
-    });
+    this.unsplashService.listCollectionPhotos(collectionId).pipe(
+      takeUntil(this.destroy$),
+      map(photos => {
+        this.photos$.set(photos?.response?.results || []);
+        this.isLoading$.set(false);
+    })).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   handleGotoPhoto(photo: IPhoto) {

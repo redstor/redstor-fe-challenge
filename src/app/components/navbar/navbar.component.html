@@ -1,0 +1,23 @@
+<!-- toDo Could you optimise this piece of code? -->
+<mat-toolbar>
+    <span>Redstor FE Challenger</span>
+  </mat-toolbar>
+  
+  <!-- toDo Could you optimise this piece of code? -->
+  <div class="breadcrumbs">
+    <div>
+        <a (click)="homePage()"><span>Collections</span></a>
+    </div>
+    @if(breadcrumbs[0] !== undefined) {
+        <div>
+            <span>></span>
+            <a [ngClass]="{'active': breadcrumbs[1] === undefined}" (click)="handleGotoCollection()"><span>Collection</span></a>
+        </div>
+    }
+    @if(breadcrumbs[1] !== undefined) {
+        <div>
+            <span>></span>
+            <a class="active"><span>Photo</span></a>
+        </div>
+    }
+  </div>
