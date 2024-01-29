@@ -6,10 +6,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CollectionComponent } from './collection.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NavbarComponent } from '../navbar';
 
 @NgModule({
   declarations: [CollectionComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatToolbarModule, MatProgressBarModule, MatCardModule, MatIconModule, NavbarComponent],
   exports: [CollectionComponent]
 })
 export class CollectionModule {}

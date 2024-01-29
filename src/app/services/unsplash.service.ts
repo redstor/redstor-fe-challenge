@@ -16,13 +16,16 @@ export class UnsplashService {
     this.api = createApi({ accessKey: environment.unsplashAccessKey });
   }
 
-  listCollections(): Observable<
+  listCollections(value: { perPage: number, page: number } | any): Observable<
     ApiResponse<{
       results: ICollection[];
       total: number;
     }>
   > {
-    return from(this.api.collections.list({}));
+    if(value?.perPage === undefined)
+      return from(this.api.collections.list({}));
+
+    return from(this.api.collections.list({ perPage: value.perPage, page: value.page }));
   }
 
   listCollectionPhotos(id: string): Observable<

@@ -11,6 +11,6 @@ export class CollectionsFacade {
   readonly collections$: Signal<ICollection[]> = this.store.selectSignal(CollectionsSelectors.selectCollections);
 
   loadCollections() {
-    this.store.dispatch(CollectionsActions.loadCollections());
+    this.store.dispatch(CollectionsActions.loadCollections({}));
   }
 }
